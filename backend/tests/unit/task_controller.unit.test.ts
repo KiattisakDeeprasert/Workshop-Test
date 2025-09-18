@@ -131,14 +131,42 @@ describe("task_controller (unit)", () => {
 
     expect(Task.findByIdAndUpdate).toHaveBeenCalledWith(
       "507f191e810c19729de860ea",
-      { subtitle: "updated", status: "in progress" },
+      { $set: { subtitle: "updated", status: "in progress" } }, // ← ไม่มี +/-
       { new: true, runValidators: true }
     );
+
     expect(res.json).toHaveBeenCalledWith({
       _id: "507f191e810c19729de860ea",
       title: "Write README",
       subtitle: "updated",
       status: "in progress",
+    });
+  });
+
+  test("PUT /api/tasks/:id → update: clear subtitle with null → uses $unset", async () => {
+    (Task.findByIdAndUpdate as jest.Mock).mockResolvedValue({
+      _id: "507f191e810c19729de860ea",
+      title: "Write README",
+      status: "done",
+    });
+
+    const req = mockReq({
+      params: { id: "507f191e810c19729de860ea" },
+      body: { subtitle: null, status: "done" },
+    });
+    const res = mockRes();
+
+    await controller.update(req, res);
+
+    expect(Task.findByIdAndUpdate).toHaveBeenCalledWith(
+      "507f191e810c19729de860ea",
+      { $set: { status: "done" }, $unset: { subtitle: "" } },
+      { new: true, runValidators: true }
+    );
+    expect(res.json).toHaveBeenCalledWith({
+      _id: "507f191e810c19729de860ea",
+      title: "Write README",
+      status: "done",
     });
   });
 
