@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import config from "./configs/env";
-import taskRoutes from "./routes/task_routes";
 import notFound from "./middleware/notFound";
 import errorHandler from "./middleware/errorHandler";
 import apiRouter from "./routes";

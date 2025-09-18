@@ -10,11 +10,17 @@ function parseCors(origins: string | undefined): (string | RegExp)[] {
   return origins.split(",").map(s => s.trim()).filter(Boolean);
 }
 
+const num = (v: string | undefined, d: number) => {
+  const n = Number(v);
+  return Number.isFinite(n) ? n : d;
+};
+
 const config = {
   env: NODE_ENV,
-  port: Number(process.env.PORT || 8081),
+  port: num(process.env.PORT, 8081),
   corsOrigins: parseCors(process.env.CORS_ORIGINS),
-  mongoUri: process.env.MONGO_URI || ""
+  mongoUri: process.env.MONGO_URI || "",
+  mongoDbName: process.env.MONGO_DB_NAME || "task_manager",
 };
 
 if (!config.mongoUri) {
