@@ -6,6 +6,7 @@ organized into two main folders:
 - **backend/** — Node.js + Express + MongoDB Atlas (API + Database)
 - **frontend/** — Vite + React + TypeScript + Tailwind CSS (UI)
 
+Demo Web: https://workshop-test-bay.vercel.app/
 ---
 
 ## Setup Instructions
