@@ -1,4 +1,3 @@
-import React from "react";
 import type { TaskStatus } from "../types";
 
 const OPTIONS: TaskStatus[] = ["to do", "in progress", "done"];

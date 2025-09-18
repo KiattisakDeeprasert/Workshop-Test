@@ -1,4 +1,3 @@
-import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { Transition, HTMLMotionProps } from "framer-motion";
 import TaskForm from "./components/TaskForm";
